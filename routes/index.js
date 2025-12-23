@@ -6,4 +6,22 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* GET API endpoint for messages */
+router.get('/api/message', function(req, res) {
+  res.json({
+    message: 'Hello from the API!',
+    timestamp: new Date().toISOString(),
+    version: '1.0.0'
+  });
+});
+
+/* GET API endpoint for user info */
+router.get('/api/users/:name', function(req, res) {
+  res.json({
+    name: req.params.name,
+    greeting: `Welcome, ${req.params.name}!`,
+    timestamp: new Date().toISOString()
+  });
+});
+
 module.exports = router;

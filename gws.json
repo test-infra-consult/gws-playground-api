@@ -1,0 +1,26 @@
+{
+  "author": "",
+  "description": "",
+  "license": "ISC",
+  "name": "test-infra",
+  "private": true,
+  "repository": "git@github.com:test-infra-consult/test-infra-api.git",
+  "version": "1.0.0",
+  "services": [
+    {
+      "name": "test-infra-api",
+      "path": ".",
+      "type": "nodejs",
+      "image": "test-infra-api",
+      "dockerfile": "Dockerfile",
+      "manifests": "k8s"
+    }
+  ],
+  "provision": {
+    "environments": {
+      "dev": {
+        "type": "k3d"
+      }
+    }
+  }
+}

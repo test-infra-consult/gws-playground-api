@@ -1,31 +1,33 @@
-FROM node:16.3.0 as builder
-USER node
+FROM node:20-alpine as builder
 
-# Create app directory
-WORKDIR /home/node/
+WORKDIR /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY --chown=node:node ["package.json", "package-lock.json", "./"]
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --omit=dev
+# Copy package files
+COPY package*.json ./
 
-# Bundle app source
-COPY . .
+# Install dependencies
+RUN npm ci --omit=dev
 
-RUN ["/bin/bash", "-c", "find . ! -name app.js ! -name node_modules ! -name public ! -name routes ! -name views -maxdepth 1 -mindepth 1 -exec rm -rf {} \\;"]
+# Copy application source
+COPY app.js ./
+COPY public/ ./public/
+COPY routes/ ./routes/
+COPY views/ ./views/
 
-FROM node:16.3.0-alpine3.13
+FROM node:20-alpine
 
-USER node
+WORKDIR /app
 
-WORKDIR /home/node/
+# Copy from builder
+COPY --from=builder /app ./
 
-COPY --chown=node:node --from=builder /home/node/ ./
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
 
-# Expose port 3000 to the outside world  
-EXPOSE 3000
+USER nodejs
 
-ENTRYPOINT ["node", "app.js"]
+# Expose port 3001 (as defined in app.js)
+EXPOSE 3001
+
+CMD ["node", "app.js"]
