@@ -15,6 +15,17 @@ router.get('/api/message', function(req, res) {
   });
 });
 
+/* GET API endpoint to test environment variables */
+router.get('/api/env-test', function(req, res) {
+  res.json({
+    message: 'Environment variables test',
+    environment: process.env.ENVIRONMENT || 'not set',
+    hasDatabaseUrl: !!process.env.DATABASE_URL,
+    hasApiKey: !!process.env.API_KEY,
+    timestamp: new Date().toISOString()
+  });
+});
+
 /* GET API endpoint for user info */
 router.get('/api/users/:name', function(req, res) {
   res.json({

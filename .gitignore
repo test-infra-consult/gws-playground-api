@@ -37,3 +37,6 @@ coverage/
 # Build output
 dist/
 build/
+
+# GetWebStack CLI - Environment worktrees
+.worktrees
