@@ -20,8 +20,8 @@ router.get('/api/env-test', function(req, res) {
   res.json({
     message: 'Environment variables test',
     environment: process.env.ENVIRONMENT || 'not set',
-    hasDatabaseUrl: !!process.env.DATABASE_URL,
-    hasApiKey: !!process.env.API_KEY,
+    hasDatabaseUrl: process.env.DATABASE_URL,
+    hasApiKey: process.env.API_KEY,
     timestamp: new Date().toISOString()
   });
 });
