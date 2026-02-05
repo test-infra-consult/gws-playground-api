@@ -26,17 +26,17 @@ spec:
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
-              name: api-env
+              name: gws-playground-api-secret
               key: DATABASE_URL
         - name: API_KEY
           valueFrom:
             secretKeyRef:
-              name: api-env
+              name: gws-playground-api-secret
               key: API_KEY
         - name: ENVIRONMENT
           valueFrom:
             secretKeyRef:
-              name: api-env
+              name: gws-playground-api-secret
               key: ENVIRONMENT
         resources:
           requests:
