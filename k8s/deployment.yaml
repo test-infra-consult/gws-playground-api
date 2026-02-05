@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-infra-api
+  name: gws-playground-api
   labels:
-    app: test-infra-api
+    app: gws-playground-api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: test-infra-api
+      app: gws-playground-api
   template:
     metadata:
       labels:
-        app: test-infra-api
+        app: gws-playground-api
     spec:
       containers:
       - name: api
-        image: test-infra-api:latest
+        image: gws-playground-api:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3001
@@ -61,9 +61,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: test-infra-api
+  name: gws-playground-api
   labels:
-    app: test-infra-api
+    app: gws-playground-api
 spec:
   type: ClusterIP
   ports:
@@ -72,4 +72,4 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: test-infra-api
+    app: gws-playground-api
